@@ -1,0 +1,4 @@
+media:
+    form:
+        title: Drop file here or click to upload.
+        remove_file: Remove file

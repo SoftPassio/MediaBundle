@@ -1,0 +1,80 @@
+{% block media_widget %}
+    {% spaceless %}
+        <div class="m-dropzone dz-clickable" data-action="{{ path('upload_media') }}" id="{{ id }}_container">
+            <input type="hidden" id="{{ id }}" name="{{ full_name }}" value="{{ data is not empty ? data.id : '' }}">
+
+            <div class="m-dropzone__msg dz-message">
+                <h3 class="m-dropzone__msg-title">{{ 'media.form.title' | trans }}</h3>
+            </div>
+        </div>
+
+        <script>
+            (function() {
+                var intiMedia = function () {
+                    var url = '{{ path('upload_media') }}';
+                    var mediaDropzoneContainer = document.getElementById('{{ id }}_container');
+
+                    new Dropzone("#{{ id }}_container", {
+                        url: url,
+                        parallelUploads: 1,
+                        maxFiles: 1,
+                        addRemoveLinks: true,
+                        dictRemoveFile: "{{ 'media.form.remove_file' | trans }}",
+                        previewTemplate: '<div class="dz-preview dz-file-preview" style="display: inline-block">' +
+                        '  <div class="dz-details">' +
+                             '<div class="dz-filename"><span data-dz-name></span></div>' +
+                             '<div class="dz-size" data-dz-size></div>' +
+                        '    <img width="120" data-dz-thumbnail />' +
+                        '  </div>' +
+                        '  <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div>' +
+                        '</div>',
+                        init: function () {
+                            var thisDropzone = this;
+
+                            var json = JSON.parse('{{ data|json_media }}');
+                            if (Object.keys(json).length !== 0) {
+                                var previewFile = {
+                                    name: json.name,
+                                    mimeType: json.mime_type,
+                                    size: json.size
+                                };
+
+                                thisDropzone.emit("addedfile", previewFile);
+
+                                if (previewFile.mimeType.match(/^image\/\w+/)) {
+                                    thisDropzone.emit("thumbnail", previewFile, json.url);
+                                }
+
+                                thisDropzone.emit("complete", previewFile);
+                            }
+
+                            thisDropzone.on("addedfile", function (file) {
+                                if (mediaDropzoneContainer.getElementsByClassName("dz-preview").length > 1) {
+                                    mediaDropzoneContainer.removeChild(mediaDropzoneContainer.getElementsByClassName("dz-preview")[0])
+                                }
+                            });
+
+                            thisDropzone.on("removedfile", function (file) {
+                                document.getElementById('{{ id }}').value = null;
+                            });
+
+                            thisDropzone.on('complete', function (file) {
+                                thisDropzone.options.maxFiles = thisDropzone.options.maxFiles + 1;
+
+                                mediaDropzoneContainer.setupEventListeners();
+
+                            });
+                        },
+                        success: function (file, response) {
+                            document.getElementById('{{ id }}').value = response.id;
+                        }
+                    });
+                };
+
+                document.addEventListener("DOMContentLoaded", function(event) {
+                    intiMedia();
+                });
+            })();
+        </script>
+    {% endspaceless %}
+{% endblock %}
