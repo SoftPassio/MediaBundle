@@ -64,6 +64,10 @@ Add these libs into your admin panel:
     
     <!-- js -->
     <script src="{{ asset('bundles/media/js/dropzone.min.js') }}"></script>
+
+Update your database schema:
+
+    $ php app/console doctrine:schema:update --force
     
 ## Media Form Type
 
