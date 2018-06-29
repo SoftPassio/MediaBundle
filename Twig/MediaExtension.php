@@ -25,6 +25,9 @@ class MediaExtension extends AbstractExtension
             new TwigFilter('media', [$this, 'mediaFilter']),
             new TwigFilter('json_media', [$this, 'jsonMediaFilter'], [
                 'is_safe' => ['html']
+            ]),
+            new TwigFilter('array_media', [$this, 'arrayMediaFilter'], [
+                'is_safe' => ['html']
             ])
         ];
     }
@@ -43,6 +46,22 @@ class MediaExtension extends AbstractExtension
         }
 
         return json_encode($data);
+    }
+
+    public function arrayMediaFilter($media)
+    {
+        $data = [];
+
+        if ($media instanceof Media) {
+            $data = [
+                'name'      => $media->getName(),
+                'url'       => $this->mediaProvider->getUrl($media),
+                'mime_type' => $media->getMimeType(),
+                'size'      => $media->getSize()
+            ];
+        }
+
+        return $data;
     }
 
     public function mediaFilter(Media $media)
