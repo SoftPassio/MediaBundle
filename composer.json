@@ -1,6 +1,6 @@
 {
-    "name": "app-verk/media-bundle",
-    "description": "AppVerk media bundle",
+    "name": "soft-passio/media-bundle",
+    "description": "SoftPassio media bundle",
     "type": "symfony-bundle",
     "autoload": {
         "psr-4": {
@@ -16,6 +16,6 @@
     "license": "MIT",
     "require": {
         "php": "^7.0",
-        "app-verk/components": "dev-master"
+        "soft-passio/components": "dev-master"
     }
 }
