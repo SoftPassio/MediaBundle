@@ -17,7 +17,7 @@ class MediaManager extends AbstractManager implements MediaManagerInterface
         $media->setSize($uploadedFile->getClientSize());
         $media->setMimeType($uploadedFile->getClientMimeType());
 
-        $this->persistAndFlash($media);
+        $this->persistAndFlush($media);
 
         return $media;
     }
