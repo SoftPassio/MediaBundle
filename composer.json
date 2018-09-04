@@ -16,6 +16,6 @@
     "license": "MIT",
     "require": {
         "php": "^7.0",
-        "app-verk/components": "dev-master"
+        "app-verk/components": "^1.0"
     }
 }
