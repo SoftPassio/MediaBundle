@@ -5,8 +5,7 @@ namespace AppVerk\MediaBundle\Controller;
 use AppVerk\MediaBundle\Doctrine\MediaManager;
 use AppVerk\MediaBundle\Service\MediaUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,8 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
 class MediaController extends AbstractController
 {
     /**
-     * @Route("/upload", name="upload_media")
-     * @Method("POST")
+     * @Route("/upload", name="upload_media", methods={"POST"})
      */
     public function uploadAction(Request $request, MediaUploader $mediaUploader, MediaManager $mediaManager)
     {
