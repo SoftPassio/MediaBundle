@@ -16,18 +16,18 @@ class MediaUploader
     /**
      * @var array
      */
-    private $allowedExtensions;
+    private $allowedMimeTypes;
 
     /**
      * @var int
      */
     private $maxSize;
 
-    public function __construct(string $targetDirectory, int $maxSize = null, array $allowedExtensions = [])
+    public function __construct(string $targetDirectory, int $maxSize = null, array $allowedMimeTypes = [])
     {
         $this->targetDirectory = $targetDirectory;
         $this->maxSize = $maxSize;
-        $this->allowedExtensions = $allowedExtensions;
+        $this->allowedMimeTypes = $allowedMimeTypes;
     }
 
     public function upload(UploadedFile $file)
@@ -43,8 +43,8 @@ class MediaUploader
 
     private function validate(UploadedFile $file)
     {
-        if (!empty($this->allowedExtensions) && !in_array($file->guessExtension(), $this->allowedExtensions)) {
-            throw new BadRequestHttpException("image extension is not valid.");
+        if (!empty($this->allowedMimeTypes) && !in_array($file->getMimeType(), $this->allowedMimeTypes)) {
+            throw new BadRequestHttpException(sprintf("image mime type (%s) is not valid.", $file->getMimeType()));
         }
 
         if ($this->maxSize) {

@@ -21,7 +21,7 @@ class MediaExtension extends Extension
         $container->setParameter('media.max_file_size', $config['max_file_size']);
         $container->setParameter('media.media_web_path', $config['media_web_path']);
         $container->setParameter('media.media_root_dir', $config['media_root_dir']);
-        $container->setParameter('media.allowed_extensions', $config['allowed_extensions']);
+        $container->setParameter('media.allowed_mime_types', $config['allowed_mime_types']);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');

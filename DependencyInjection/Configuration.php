@@ -23,7 +23,7 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('max_file_size')->defaultValue(5242880)->end()
                 ->scalarNode('media_web_path')->defaultValue('/uploads/media')->end()
                 ->scalarNode('media_root_dir')->defaultValue('%kernel.project_dir%/web/uploads/media')->end()
-                ->arrayNode('allowed_extensions')
+                ->arrayNode('allowed_mime_types')
                     ->prototype('scalar')
                 ->end()
             ->end();
