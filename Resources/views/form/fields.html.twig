@@ -1,5 +1,6 @@
 {% block media_widget %}
     {% spaceless %}
+        {{ form_label(form) }}
         <div class="m-dropzone dz-clickable" data-action="{{ path('upload_media') }}" id="{{ id }}_container">
             <input type="hidden" id="{{ id }}" name="{{ full_name }}" value="{{ data is not empty ? data.id : '' }}">
 
@@ -11,7 +12,7 @@
         <script>
             (function() {
                 var intiMedia = function () {
-                    var url = '{{ path('upload_media') }}';
+                    var url = '{{ path('upload_media', {'group': form.vars['group']}) }}';
                     var mediaDropzoneContainer = document.getElementById('{{ id }}_container');
 
                     new Dropzone("#{{ id }}_container", {

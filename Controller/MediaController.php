@@ -17,13 +17,20 @@ use Symfony\Component\HttpFoundation\Response;
 class MediaController extends AbstractController
 {
     /**
-     * @Route("/upload", name="upload_media", methods={"POST"})
+     * @Route("/upload/{group}", name="upload_media", methods={"POST"})
+     *
+     * @param Request       $request
+     * @param MediaUploader $mediaUploader
+     * @param MediaManager  $mediaManager
+     * @param null|string   $group
+     *
+     * @return JsonResponse|Response
      */
-    public function uploadAction(Request $request, MediaUploader $mediaUploader, MediaManager $mediaManager)
+    public function uploadAction(Request $request, MediaUploader $mediaUploader, MediaManager $mediaManager, ?string $group = null)
     {
         $file = $request->files->get('file');
         if ($file instanceof UploadedFile) {
-            $fileName = $mediaUploader->upload($file);
+            $fileName = $mediaUploader->upload($file, $group);
             $media = $mediaManager->createMedia($file, $fileName);
 
             $output['fileName'] = $media->getFileName();
