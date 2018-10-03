@@ -2,3 +2,8 @@ media:
     form:
         title: Drop file here or click to upload.
         remove_file: Remove file
+        error:
+            max_size: Max size reached
+            max_size_content: 'Max size: %max_size%MB'
+            invalid_mime_type: Invalid type for file
+            invalid_mime_type_content: 'Accepted types: %mime_types%'
