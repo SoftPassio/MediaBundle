@@ -3,6 +3,7 @@
 namespace AppVerk\MediaBundle\Form\Type;
 
 use AppVerk\MediaBundle\Form\DataTransformer\MediaTransformer;
+use AppVerk\MediaBundle\Service\MediaValidation;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -17,15 +18,22 @@ class MediaType extends AbstractType
      */
     private $mediaTransformer;
 
+    /**
+     * @var MediaValidation
+     */
+    private $mediaValidation;
+
 
     /**
      * MediaType constructor.
      *
      * @param MediaTransformer $mediaTransformer
+     * @param MediaValidation  $mediaValidation
      */
-    public function __construct(MediaTransformer $mediaTransformer)
+    public function __construct(MediaTransformer $mediaTransformer, MediaValidation $mediaValidation)
     {
         $this->mediaTransformer = $mediaTransformer;
+        $this->mediaValidation = $mediaValidation;
     }
 
     /**
@@ -44,6 +52,8 @@ class MediaType extends AbstractType
         parent::buildView($view, $form, $options);
 
         $view->vars['group'] = $options['group'];
+        $view->vars['allowed_mime_types'] = $this->mediaValidation->getAllowedMimeTypes($options['group']);
+        $view->vars['max_size'] = $this->mediaValidation->getMaxSize($options['group']);
     }
 
     /**

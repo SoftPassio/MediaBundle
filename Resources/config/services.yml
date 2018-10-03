@@ -16,8 +16,12 @@ services:
         arguments:
             $targetDirectory: '%media.media_web_path%'
 
+    AppVerk\MediaBundle\Service\MediaValidation:
+        arguments: ['%media.max_file_size%', '%media.allowed_mime_types%', '%media.groups%']
+
     AppVerk\MediaBundle\Service\MediaUploader:
-        arguments: ['%media.media_root_dir%', '%media.max_file_size%', '%media.allowed_mime_types%', '%media.groups%']
+        arguments:
+            $targetDirectory: '%media.media_root_dir%'
 
     AppVerk\MediaBundle\Doctrine\MediaManagerInterface: '@AppVerk\MediaBundle\Doctrine\MediaManager'
 
