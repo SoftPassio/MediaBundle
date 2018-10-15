@@ -34,7 +34,7 @@ class MediaUploader
     {
         $this->validate($file);
 
-        $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+        $fileName = md5(uniqid()) . '.' . $file->getClientOriginalExtension();
 
         $file->move($this->targetDirectory, $fileName);
 
@@ -43,7 +43,7 @@ class MediaUploader
 
     private function validate(UploadedFile $file)
     {
-        if (!empty($this->allowedExtensions) && !in_array($file->guessExtension(), $this->allowedExtensions)) {
+        if (!empty($this->allowedExtensions) && !in_array($file->getClientOriginalExtension(), $this->allowedExtensions)) {
             throw new BadRequestHttpException("image extension is not valid.");
         }
 
