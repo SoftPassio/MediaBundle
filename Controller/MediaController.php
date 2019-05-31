@@ -30,13 +30,17 @@ class MediaController extends AbstractController
     {
         $file = $request->files->get('file');
         if ($file instanceof UploadedFile) {
-            $fileName = $mediaUploader->upload($file, $group);
-            $media = $mediaManager->createMedia($file, $fileName);
+            try {
+                list($fileName, $filePath) = $mediaUploader->upload($file, $group);
+                $media = $mediaManager->createMedia($file, $fileName, $filePath);
 
-            $output['fileName'] = $media->getFileName();
-            $output['id'] = $media->getId();
+                $output['fileName'] = $media->getFileName();
+                $output['id'] = $media->getId();
 
-            return new JsonResponse($output);
+                return new JsonResponse($output);
+            } catch (\Exception $e) {
+                return new JsonResponse($e->getMessage(), Response::HTTP_BAD_REQUEST);
+            }
         }
 
         return new Response('', Response::HTTP_BAD_REQUEST);
