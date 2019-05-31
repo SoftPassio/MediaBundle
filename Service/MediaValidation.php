@@ -77,4 +77,17 @@ class MediaValidation
 
         return $this->maxSize;
     }
+
+    public function getGroupSizes(?string $groupName = null): array
+    {
+        $group = $this->getGroup($groupName);
+        if (!$group) {
+            return [];
+        }
+        if (!isset($group['sizes'])) {
+            return [];
+        }
+
+        return $group['sizes'];
+    }
 }
