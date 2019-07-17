@@ -16,6 +16,6 @@
     "license": "MIT",
     "require": {
         "php": "^7.0",
-        "soft-passio/components": "dev-master"
+        "soft-passio/components": "^2.0"
     }
 }

@@ -5,6 +5,7 @@ namespace AppVerk\MediaBundle\Service;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class MediaUploader
 {
@@ -14,47 +15,102 @@ class MediaUploader
     private $targetDirectory;
 
     /**
-     * @var array
+     * @var MediaValidation
      */
-    private $allowedExtensions;
+    private $mediaValidation;
 
     /**
-     * @var int
+     * @var TranslatorInterface
      */
-    private $maxSize;
+    private $translator;
 
-    public function __construct(string $targetDirectory, int $maxSize = null, array $allowedExtensions = [])
-    {
+    /**
+     * MediaUploader constructor.
+     *
+     * @param string $targetDirectory
+     * @param MediaValidation $mediaValidation
+     */
+    public function __construct(
+        string $targetDirectory,
+        MediaValidation $mediaValidation,
+        TranslatorInterface $translator
+    ) {
         $this->targetDirectory = $targetDirectory;
-        $this->maxSize = $maxSize;
-        $this->allowedExtensions = $allowedExtensions;
+        $this->mediaValidation = $mediaValidation;
+        $this->translator = $translator;
     }
 
-    public function upload(UploadedFile $file)
+    /**
+     * @param UploadedFile $file
+     * @param null|string $groupName
+     *
+     * @return string
+     */
+    public function upload(UploadedFile $file, ?string $groupName = null)
     {
-        $this->validate($file);
+        $this->validate($file, $groupName);
+        $this->validateSize($file, $groupName);
 
-        $fileName = md5(uniqid()) . '.' . $file->getClientOriginalExtension();
+        $fileName = md5(uniqid()).'.'.$file->guessExtension();
 
         $file->move($this->targetDirectory, $fileName);
 
-        return $fileName;
+        return [$fileName, $this->targetDirectory];
     }
 
-    private function validate(UploadedFile $file)
+    /**
+     * @param UploadedFile $file
+     * @param null|string $groupName
+     */
+    private function validate(UploadedFile $file, ?string $groupName = null): void
     {
-        if (!empty($this->allowedExtensions) && !in_array($file->getClientOriginalExtension(), $this->allowedExtensions)) {
-            throw new BadRequestHttpException("image extension is not valid.");
+        $allowedMimeTypes = $this->mediaValidation->getAllowedMimeTypes($groupName);
+        if (!empty($allowedMimeTypes) && !in_array($file->getMimeType(), $allowedMimeTypes)) {
+            throw new BadRequestHttpException(
+                $this->translator->trans('media.validation.image_type', ['%type%' => $file->getMimeType()])
+            );
         }
 
-        if ($this->maxSize) {
+        $maxSize = $this->mediaValidation->getMaxSize($groupName);
+        if ($maxSize) {
             if (!($fileSize = $file->getClientSize())) {
                 throw new NotFoundHttpException();
             }
 
-            if ($fileSize > $this->maxSize) {
-                throw new BadRequestHttpException("Upload file can not be bigger than " . $this->maxSize . " bytes");
+            if ($fileSize > $maxSize) {
+                throw new BadRequestHttpException(
+                    $this->translator->trans('media.validation.image_size', ['%max_size%' => $maxSize])
+                );
             }
+        }
+    }
+
+    private function validateSize(UploadedFile $file, ?string $groupName = null)
+    {
+        $sizes = $this->mediaValidation->getGroupSizes($groupName);
+        if (empty($sizes)) {
+            return;
+        }
+
+        list($imageWidth, $imageHeight) = getimagesize($file->getPathname());
+
+        $minWidth = $sizes['min_width'];
+        $maxWidth = $sizes['max_width'];
+        $minHeight = $sizes['min_height'];
+        $maxHeight = $sizes['max_height'];
+
+        if ($imageWidth < $minWidth || $imageWidth > $maxWidth || $imageHeight < $minHeight || $imageHeight > $maxHeight) {
+            throw new BadRequestHttpException(
+                $this->translator->trans(
+                    'media.validation.image_dimension',
+                    [
+                        '%max_width%'  => $maxWidth,
+                        '%min_width%'  => $minWidth,
+                        '%max_height%' => $maxHeight,
+                        '%min_height%' => $minHeight,
+                    ]
+                )
+            );
         }
     }
 }
