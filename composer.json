@@ -4,13 +4,17 @@
     "type": "symfony-bundle",
     "autoload": {
         "psr-4": {
-          "AppVerk\\MediaBundle\\": ""
+          "SoftPassio\\MediaBundle\\": ""
         }
     },
     "authors": [
         {
-            "name": "Michał Kurcewicz",
-            "email": "michal.kurcewicz@appverk.com"
+            "name": "Rafał Narowski",
+            "email": "rafal.narowski@o2.pl"
+        },
+        {
+            "name": "Michał Jędraszczyk",
+            "email": "m.jedrasz@gmail.com"
         }
     ],
     "license": "MIT",

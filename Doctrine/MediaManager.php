@@ -1,9 +1,9 @@
 <?php
 
-namespace AppVerk\MediaBundle\Doctrine;
+namespace SoftPassio\MediaBundle\Doctrine;
 
-use AppVerk\MediaBundle\Entity\Media;
-use AppVerk\Components\Doctrine\AbstractManager;
+use SoftPassio\MediaBundle\Entity\Media;
+use SoftPassio\Components\Doctrine\AbstractManager;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class MediaManager extends AbstractManager implements MediaManagerInterface

@@ -1,9 +1,9 @@
 <?php
 
-namespace AppVerk\MediaBundle\Form\Type;
+namespace SoftPassio\MediaBundle\Form\Type;
 
-use AppVerk\MediaBundle\Form\DataTransformer\MediaTransformer;
-use AppVerk\MediaBundle\Service\MediaValidation;
+use SoftPassio\MediaBundle\Form\DataTransformer\MediaTransformer;
+use SoftPassio\MediaBundle\Service\MediaValidation;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;

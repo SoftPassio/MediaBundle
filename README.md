@@ -6,7 +6,7 @@ Symfony Media Bundle. The bundle allow in easy way upload files. The bundle requ
 
 Require the bundle with composer:
 
-    $ composer require app-verk/media-bundle
+    $ composer require soft-passio/media-bundle
 
 Enable the bundle in the kernel:
 
@@ -17,7 +17,7 @@ Enable the bundle in the kernel:
     {
         $bundles = array(
             // ...
-            new AppVerk\MediaBundle\MediaBundle(),
+            new SoftPassio\MediaBundle\MediaBundle(),
             // ...
         );
     }
@@ -28,7 +28,7 @@ Create your Media class:
     
     namespace AppBundle\Entity;
     
-    use AppVerk\MediaBundle\Entity\Media as BaseMedia;
+    use SoftPassio\MediaBundle\Entity\Media as BaseMedia;
     use Doctrine\ORM\Mapping as ORM;
     
     /**
@@ -74,7 +74,7 @@ Update your database schema:
     <?php
     
     use Symfony\Component\Form\AbstractType;
-    use AppVerk\MediaBundle\Form\Type\MediaType;
+    use SoftPassio\MediaBundle\Form\Type\MediaType;
     use Symfony\Component\Form\FormBuilderInterface;
     
     class Post extends AbstractType

@@ -1,9 +1,9 @@
 <?php
 
-namespace AppVerk\MediaBundle\Controller;
+namespace SoftPassio\MediaBundle\Controller;
 
-use AppVerk\MediaBundle\Doctrine\MediaManager;
-use AppVerk\MediaBundle\Service\MediaUploader;
+use SoftPassio\MediaBundle\Doctrine\MediaManager;
+use SoftPassio\MediaBundle\Service\MediaUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\UploadedFile;

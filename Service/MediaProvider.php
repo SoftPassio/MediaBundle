@@ -1,8 +1,8 @@
 <?php
 
-namespace AppVerk\MediaBundle\Service;
+namespace SoftPassio\MediaBundle\Service;
 
-use AppVerk\MediaBundle\Entity\Media;
+use SoftPassio\MediaBundle\Entity\Media;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 

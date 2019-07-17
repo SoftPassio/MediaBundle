@@ -1,6 +1,6 @@
 <?php
 
-namespace AppVerk\MediaBundle;
+namespace SoftPassio\MediaBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

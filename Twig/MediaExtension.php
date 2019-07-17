@@ -1,9 +1,9 @@
 <?php
 
-namespace AppVerk\MediaBundle\Twig;
+namespace SoftPassio\MediaBundle\Twig;
 
-use AppVerk\MediaBundle\Entity\Media;
-use AppVerk\MediaBundle\Service\MediaProvider;
+use SoftPassio\MediaBundle\Entity\Media;
+use SoftPassio\MediaBundle\Service\MediaProvider;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 

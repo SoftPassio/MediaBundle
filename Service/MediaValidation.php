@@ -1,6 +1,6 @@
 <?php
 
-namespace AppVerk\MediaBundle\Service;
+namespace SoftPassio\MediaBundle\Service;
 
 class MediaValidation
 {

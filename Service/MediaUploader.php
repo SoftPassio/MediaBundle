@@ -1,6 +1,6 @@
 <?php
 
-namespace AppVerk\MediaBundle\Service;
+namespace SoftPassio\MediaBundle\Service;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;

@@ -1,6 +1,6 @@
 <?php
 
-namespace AppVerk\MediaBundle\DependencyInjection;
+namespace SoftPassio\MediaBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

@@ -1,8 +1,8 @@
 <?php
 
-namespace AppVerk\MediaBundle\Doctrine;
+namespace SoftPassio\MediaBundle\Doctrine;
 
-use AppVerk\Components\Doctrine\ManagerInterface;
+use SoftPassio\Components\Doctrine\ManagerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 interface MediaManagerInterface extends ManagerInterface

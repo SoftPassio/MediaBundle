@@ -1,8 +1,8 @@
 <?php
 
-namespace AppVerk\MediaBundle\Form\DataTransformer;
+namespace SoftPassio\MediaBundle\Form\DataTransformer;
 
-use AppVerk\Components\Doctrine\EntityInterface;
+use SoftPassio\Components\Doctrine\EntityInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;

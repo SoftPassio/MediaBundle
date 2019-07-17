@@ -1,8 +1,8 @@
 <?php
 
-namespace AppVerk\MediaBundle\Entity;
+namespace SoftPassio\MediaBundle\Entity;
 
-use AppVerk\Components\Doctrine\EntityInterface;
+use SoftPassio\Components\Doctrine\EntityInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
