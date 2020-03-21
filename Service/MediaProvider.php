@@ -32,6 +32,6 @@ class MediaProvider
 
     public function getPublicUrl(Media $media): string
     {
-        return $this->request->getSchemeAndHttpHost() . $this->getUrl($media);
+        return (!$this->request) ? $this->getUrl($media) : $this->request->getSchemeAndHttpHost() . $this->getUrl($media);
     }
 }
